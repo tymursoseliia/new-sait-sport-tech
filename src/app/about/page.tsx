@@ -32,7 +32,7 @@ const team = [
     position: 'Менеджер по работе с клиентами',
     description:
       'Организует подбор, доставку и таможенное оформление. 4 года опыта в международных перевозках.',
-    image: '/team/FrolovDenis.png'
+    image: '/team/FrolovDenis.jpg'
   },
   {
     name: 'Петрова Екатерина Александровна',
@@ -60,7 +60,7 @@ const team = [
     position: 'Специалист по логистике',
     description:
       'Обеспечивает бесперебойную доставку и таможенное оформление. Более 100 успешно реализованных логистических цепочек из Европы в СНГ.',
-    image: '/team/PaleninAleksandr.png'
+    image: '/team/PaleninAleksandr.jpg'
   },
 ];
 
