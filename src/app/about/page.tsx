@@ -48,6 +48,20 @@ const team = [
       '3 года строю для клиентов комфортный путь к своему автомобилю. Более 75 авто под ключ, каждый проект — под индивидуальные задачи и запросы.',
     image: '/team/EfremovaAlisa.png'
   },
+  {
+    name: 'Вениаминов Павел Николаевич',
+    position: 'Эксперт по технической диагностике',
+    description:
+      '5 лет опыта в сфере технической экспертизы. Более 200 проверенных автомобилей, глубокое знание матчасти и всех нюансов состояния авто.',
+    image: '/team/VeniaminovPavel.png'
+  },
+  {
+    name: 'Паленин Александр Владимирович',
+    position: 'Специалист по логистике',
+    description:
+      'Обеспечивает бесперебойную доставку и таможенное оформление. Более 100 успешно реализованных логистических цепочек из Европы в СНГ.',
+    image: '/team/PaleninAleksandr.png'
+  },
 ];
 
 export default function AboutPage() {
@@ -371,8 +385,8 @@ export default function AboutPage() {
             </div>
           </div>
 
-          {/* ДЕСКТОП: Компактная сетка 5 колонок без фото */}
-          <div className="hidden lg:grid md:grid-cols-2 lg:grid-cols-5 gap-4">
+          {/* ДЕСКТОП: Компактная сетка 4 колонки */}
+          <div className="hidden lg:grid md:grid-cols-2 lg:grid-cols-4 gap-4">
             {team.map((member, index) => {
               return (
                 <Card key={`desktop-team-${index}`} className="overflow-hidden bg-muted/20 border-border p-5 flex flex-col h-full hover:border-primary/30 transition-colors">
