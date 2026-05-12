@@ -13,7 +13,7 @@ export default function JsonLd() {
     logo: {
       '@type': 'ImageObject',
       '@id': `${CONTACTS.website}/#logo`,
-      url: `${CONTACTS.website}/logo-square.png`,
+      url: `${CONTACTS.website}/logo-sport-tech.png`,
       width: 500,
       height: 500,
       caption: 'СПОРТ ТЕХ Logo',
@@ -57,7 +57,7 @@ export default function JsonLd() {
     image: [
       {
         '@type': 'ImageObject',
-        url: `${CONTACTS.website}/logo-square.png`,
+        url: `${CONTACTS.website}/logo-sport-tech.png`,
         width: 500,
         height: 500,
       },

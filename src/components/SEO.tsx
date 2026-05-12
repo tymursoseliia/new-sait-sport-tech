@@ -42,7 +42,7 @@ export default function SEO({
       ? 'Автопригон из Европы под ключ. Подбор, проверка, доставка и растаможка автомобилей.'
       : 'Car import from Europe turnkey. Selection, inspection, delivery and customs clearance.',
     url: siteUrl,
-    logo: `${siteUrl}/logo.png`,
+    logo: `${siteUrl}/logo-sport-tech.png`,
     image: defaultImage,
     telephone: CONTACTS.phone,
     email: CONTACTS.email,
