@@ -33,7 +33,7 @@ export default function Header() {
   return (
     <header className={`sticky top-0 z-50 w-full border-b transition-all duration-300 ${scrolled ? 'bg-background shadow-md' : 'bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60'
       }`}>
-      <nav className="container-custom flex h-16 md:h-20 items-center gap-4">
+      <nav className="container-custom flex h-20 md:h-24 items-center gap-4">
         {/* Мобильное меню - кнопка (слева на мобильных) */}
         <button
           type="button"
@@ -50,7 +50,7 @@ export default function Header() {
 
         {/* Логотип - оптимизирован для маленьких экранов */}
         <div className="flex-1 flex justify-center lg:justify-start lg:flex-initial lg:order-first">
-          <div className="scale-[0.85] sm:scale-100 origin-center">
+          <div className="scale-100 origin-center">
             <Logo />
           </div>
         </div>
