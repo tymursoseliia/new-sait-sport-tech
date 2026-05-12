@@ -18,14 +18,14 @@ const team = [
     position: 'Эксперт по подбору авто из Европы',
     description:
       '4 года в сфере автоподбора, более 75 автомобилей, подобранных и доставленных клиентам под ключ.',
-    image: '/team/KondratyevEvgeny.png'
+    image: '/team/NikolProkhorova.png'
   },
   {
     name: 'Николь Прохорова Романовна',
     position: 'Менеджер по работе с клиентами',
     description:
       '5 лет помогаю клиентам безопасно покупать авто. Более 83 машин, подобранных и доставленных "под ключ" с полным контролем на каждом этапе.',
-    image: '/team/NikolProkhorova.png'
+    image: '/team/PaleninAleksandr.jpg'
   },
   {
     name: 'Фролов Денис Андреевич',
@@ -60,7 +60,7 @@ const team = [
     position: 'Специалист по логистике',
     description:
       'Обеспечивает бесперебойную доставку и таможенное оформление. Более 100 успешно реализованных логистических цепочек из Европы в СНГ.',
-    image: '/team/PaleninAleksandr.jpg'
+    image: '/team/KondratyevEvgeny.png'
   },
 ];
 
