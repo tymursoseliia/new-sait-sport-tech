@@ -3,6 +3,7 @@ import HomeClient from './HomeClient';
 import { getLocalPhotoReviews } from './reviews/actions';
 
 export const dynamic = 'force-dynamic';
+export const runtime = 'nodejs';
 
 export default async function Home() {
   const [cars, reviews, photoReviews] = await Promise.all([

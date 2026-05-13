@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { TELEGRAM_CONFIG, formatTelegramMessage, isTelegramConfigured } from '@/config/telegram';
 
+export const runtime = 'nodejs';
+
 export async function POST(request: NextRequest) {
   try {
     // Проверяем конфигурацию
