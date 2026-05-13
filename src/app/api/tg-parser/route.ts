@@ -125,10 +125,10 @@ export async function POST(request: Request) {
         const buffer = Buffer.from(await imageRes.arrayBuffer());
         
         const fileName = `tg_${Date.now()}_${Math.random().toString(36).substring(7)}.jpg`;
-        const { data: uploadData } = await supabase.storage.from('zvuk-cars').upload(fileName, buffer, { contentType: 'image/jpeg' });
+        const { data: uploadData } = await supabase.storage.from('ZVUK-CARS').upload(fileName, buffer, { contentType: 'image/jpeg' });
         
         if (uploadData) {
-          const { data: publicUrlData } = supabase.storage.from('zvuk-cars').getPublicUrl(fileName);
+          const { data: publicUrlData } = supabase.storage.from('ZVUK-CARS').getPublicUrl(fileName);
           finalImageUrl = publicUrlData.publicUrl;
         }
       }

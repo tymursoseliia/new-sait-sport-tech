@@ -23,17 +23,16 @@ async function uploadImage(fileId, carSlug) {
     try {
         const fileLink = await bot.getFileLink(fileId);
         const response = await axios.get(fileLink, { responseType: 'arraybuffer' });
-        const fileName = `${carSlug}-${Date.now()}.jpg`;
+        const fileName = `tg_${Date.now()}_${Math.random().toString(36).substring(7)}.jpg`;
         
         const { data, error } = await supabase.storage
-            .from('cars')
+            .from('ZVUK-CARS')
             .upload(fileName, response.data, { 
-                contentType: 'image/jpeg',
-                upsert: true 
+                contentType: 'image/jpeg'
             });
 
         if (error) throw error;
-        const { data: publicUrl } = supabase.storage.from('cars').getPublicUrl(fileName);
+        const { data: publicUrl } = supabase.storage.from('ZVUK-CARS').getPublicUrl(fileName);
         return publicUrl.publicUrl;
     } catch (e) {
         console.error('❌ Ошибка загрузки фото:', e.message);
@@ -42,36 +41,57 @@ async function uploadImage(fileId, carSlug) {
 }
 
 function parseCar(text) {
-    const titleMatch = text.match(/╔═══ (.*?) ═══╗/);
-    if (!titleMatch) return null;
+    const lines = text.split('\n').map(l => l.trim()).filter(Boolean);
+    
+    // Пытаемся найти заголовок (обычно первая строка или строка с рамками)
+    let title = lines[0] || 'Unknown Car';
+    if (title.includes('═══')) {
+        const match = title.match(/═══ (.*?) ═══/);
+        if (match) title = match[1];
+    }
+    
+    const brand = title.split(' ')[0] || 'Unknown';
+    const model = title.split(' ').slice(1).join(' ') || '';
 
-    const brandModel = titleMatch[1].split(' ');
-    const brand = brandModel[0];
-    const model = brandModel.slice(1).join(' ');
-    
-    const year = text.match(/Год выпуска: (\d{4})/)?.[1];
-    const mileage = text.match(/Пробег: ([\d\s]+) км/)?.[1]?.replace(/\s/g, '');
-    
-    // Улучшенный поиск цены: понимает любое тире и убирает точки/пробелы
-    const priceMatch = text.match(/Общая стоимость под ключ\s*[-—–]\s*([\d\s.,]+)\s*руб/i);
-    const priceValue = priceMatch ? priceMatch[1].replace(/[^\d]/g, '') : '0';
+    const yearMatch = text.match(/Год выпуска:\s*(\d+)/i);
+    const mileageMatch = text.match(/Пробег:\s*([\d\s.]+)\s*км/i);
+    const fuelMatch = text.match(/Топливо:\s*(.+)/i);
+    const transmissionMatch = text.match(/КПП:\s*(.+)/i) || text.match(/Коробка:\s*(.+)/i);
+    const driveMatch = text.match(/Привод:\s*(.+)/i);
+    const priceMatch = text.match(/ЦЕНА ПОД КЛЮЧ:\s*([\d\s.]+)\s*(?:₽|руб)/i) || text.match(/Общая стоимость под ключ\s*[-—–]\s*([\d\s.]+)/i);
+    const engineMatch = text.match(/Двигатель:\s*(.+)/i);
+    const colorMatch = text.match(/Цвет:\s*(.+)/i);
 
-    const fuel = text.match(/Топливо: (.*)/)?.[1];
-    const transmission = text.match(/Коробка: (.*)/)?.[1];
+    const year = yearMatch ? parseInt(yearMatch[1], 10) : 2020;
+    const mileage = mileageMatch ? parseInt(mileageMatch[1].replace(/[\s.]/g, ''), 10) : 0;
+    const price = priceMatch ? parseInt(priceMatch[1].replace(/[\s.]/g, ''), 10) : 0;
+    const fuel_type = fuelMatch ? fuelMatch[1].trim() : 'Бензин';
     
-    const slug = `${brand}-${model}-${year}-${Math.random().toString(36).substr(2, 5)}`.toLowerCase().replace(/[^a-z0-9]/g, '-');
+    let transmission = 'автомат';
+    const transText = transmissionMatch ? transmissionMatch[1].toLowerCase() : '';
+    if (transText.includes('механ')) transmission = 'механика';
+    else if (transText.includes('робот')) transmission = 'робот';
+    else if (transText.includes('вариат')) transmission = 'вариатор';
+
+    let body_type = 'fwd';
+    const driveText = driveMatch ? driveMatch[1].toLowerCase() : '';
+    if (driveText.includes('задн')) body_type = 'rwd';
+    else if (driveText.includes('полн')) body_type = 'awd';
+
+    const slug = `${brand}-${model}-${year}-${Date.now()}`.toLowerCase().replace(/[^a-z0-9]+/g, '-');
 
     return {
         brand,
         model,
-        year: parseInt(year) || 2020,
-        mileage: parseInt(mileage) || 0,
-        price: parseInt(priceValue) || 0,
-        fuel_type: fuel?.trim() || 'Дизель',
-        transmission: transmission?.trim() || 'Автомат',
-        title: titleMatch[1],
+        year,
+        mileage,
+        price,
+        fuel_type,
+        transmission,
+        body_type,
         slug,
         full_description: text,
+        short_description: `${year} год, ${mileage.toLocaleString()} км, ${fuel_type}`,
         status: 'available'
     };
 }
@@ -80,46 +100,48 @@ bot.on('message', async (msg) => {
     const text = msg.text || msg.caption;
     if (!text) return;
 
-    // 1. Обработка "ПРОДАНО" (если это ответ на сообщение)
+    // 1. Статусы через Reply
     if (msg.reply_to_message) {
         const lowerText = text.toLowerCase();
         let newStatus = null;
         
-        if (lowerText.includes('продано')) newStatus = 'sold';
-        if (lowerText.includes('бронь') || lowerText.includes('заброниров')) newStatus = 'reserved';
-        if (lowerText.includes('под заказ')) newStatus = 'on_order';
-        if (lowerText.includes('в наличии') || lowerText.includes('активн')) newStatus = 'available';
+        if (lowerText.includes('продан')) newStatus = 'sold';
+        else if (lowerText.includes('бронь')) newStatus = 'reserved';
+        else if (lowerText.includes('под заказ')) newStatus = 'on_order';
+        else if (lowerText.includes('в наличии')) newStatus = 'available';
 
         if (newStatus) {
-            const originalId = msg.reply_to_message.forward_from_message_id || msg.reply_to_message.message_id;
+            const originalId = msg.reply_to_message.message_id;
             const { error } = await supabase
                 .from('cars')
                 .update({ status: newStatus })
                 .eq('telegram_id', String(originalId));
             
             if (!error) {
-                bot.sendMessage(msg.chat.id, `✅ Статус машины обновлен на: ${newStatus.toUpperCase()}`);
+                bot.sendMessage(msg.chat.id, `✅ Статус обновлен на: ${newStatus.toUpperCase()}`);
             } else {
-                bot.sendMessage(msg.chat.id, '❌ Не удалось найти машину в базе для обновления статуса.');
+                bot.sendMessage(msg.chat.id, '❌ Не нашел машину в базе.');
             }
             return;
         }
     }
 
-    // 2. Парсинг Машины
-    const carData = parseCar(text);
-    if (carData) {
-        bot.sendMessage(msg.chat.id, '⌛ Вижу машину: ' + carData.title + '. Начинаю добавление...');
+    // 2. Новая машина
+    if (text.includes('Год выпуска:')) {
+        const carData = parseCar(text);
+        bot.sendMessage(msg.chat.id, `⌛ Вижу ${carData.brand} ${carData.model}. Обрабатываю...`);
         
         let imageUrl = null;
         if (msg.photo) {
             imageUrl = await uploadImage(msg.photo[msg.photo.length - 1].file_id, carData.slug);
         }
 
+        const telegramId = String(msg.message_id);
         const { error } = await supabase.from('cars').upsert([{
             ...carData,
             main_image: imageUrl,
-            telegram_id: String(msg.forward_from_message_id || msg.message_id)
+            images: imageUrl ? [imageUrl] : [],
+            telegram_id: telegramId
         }], { 
             onConflict: 'telegram_id' 
         });
