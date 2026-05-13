@@ -171,31 +171,3 @@ export async function POST(request: Request) {
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
   }
 }
- По умолчанию в наличии
-      brand,
-      model,
-      year,
-      price,
-      mileage,
-      fuel_type,
-      transmission,
-      body_type, // это наше поле привода
-      short_description: short_desc.trim(),
-      full_description: text,
-      main_image: finalImageUrl || null,
-      images: finalImageUrl ? [finalImageUrl] : [],
-      location_country: 'Россия',
-      location_city: 'Уточняйте'
-    }]);
-
-    if (insertError) {
-      console.error('Supabase DB error:', insertError);
-      return NextResponse.json({ error: 'DB Insert Failed', details: insertError }, { status: 500 });
-    }
-
-    return NextResponse.json({ success: true, slug, textConfig: { brand, model, year, price, mileage }});
-  } catch (error) {
-    console.error('TG Parser Error:', error);
-    return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
-  }
-}
