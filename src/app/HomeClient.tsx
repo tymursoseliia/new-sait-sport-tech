@@ -243,10 +243,6 @@ export default function HomeClient({ cars, reviews, photoReviews }: HomeClientPr
                           <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/50"></span>
                           <span>{car.fuel} • {car.transmission}</span>
                         </div>
-                        <div className="flex items-center gap-2 text-xs text-muted-foreground/80">
-                          <span className="w-1.5 h-1.5 rounded-full bg-muted-foreground/50"></span>
-                          <span>{getDriveTypeLabel(car.body)} привод</span>
-                        </div>
                       </div>
                       <div className="flex gap-2 w-full mt-auto">
                         <Button variant="outline" className="flex-1 shadow-sm text-sm" asChild>
@@ -295,10 +291,6 @@ export default function HomeClient({ cars, reviews, photoReviews }: HomeClientPr
                     <div className="flex items-center gap-2 text-sm text-muted-foreground/80">
                       <span className="w-2 h-2 rounded-full bg-muted-foreground/50"></span>
                       <span>{car.fuel} • {car.transmission}</span>
-                    </div>
-                    <div className="flex items-center gap-2 text-sm text-muted-foreground/80">
-                      <span className="w-2 h-2 rounded-full bg-muted-foreground/50"></span>
-                      <span>{getDriveTypeLabel(car.body)} привод</span>
                     </div>
                   </div>
                   <div className="flex gap-2 w-full mt-auto">
