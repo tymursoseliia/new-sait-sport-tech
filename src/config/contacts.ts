@@ -56,11 +56,11 @@ export const CONTACTS = {
   },
 
   // Мессенджеры
-  whatsapp: 'https://wa.me/79016209756',
-  whatsappNumber: '+7 (901) 620-97-56',
-  telegram: 'https://t.me/Volgaprigon',
-  telegramUsername: '@Volgaprigon',
-  max: 'https://max.ru/u/f9LHodD0cOJ6gz27zc5q7-2nE5_6HE3LR-PsZIMTKSxreQI30zXFNvvDfR8',
+  whatsapp: 'https://wa.me/79010784616',
+  whatsappNumber: '+7 (901) 078-46-16',
+  telegram: 'https://t.me/Sporttehauto',
+  telegramUsername: '@Sporttehauto',
+  max: 'https://max.ru/u/f9LHodD0cOKjUnTjVHvZhD0dybHWGW1IEyXAy7WO_zyI4JoYXm8WX6bZ40Q',
   maxDisplayName: 'Связаться в MAX',
 
   // Социальные сети (при необходимости добавьте)
