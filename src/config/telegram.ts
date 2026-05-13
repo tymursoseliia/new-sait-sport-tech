@@ -11,10 +11,10 @@
 export const TELEGRAM_CONFIG = {
   // Токен вашего бота (получите у @BotFather)
   // ВАЖНО: Храните токен в безопасности! В продакшене используйте переменные окружения
-  botToken: process.env.TELEGRAM_BOT_TOKEN || '8602933958:AAGzHXGQUKRrKuyj_j5evxG2FpGlrMlSZNE',
+  botToken: process.env.TELEGRAM_BOT_TOKEN || '8815665977:AAERd5HJac1kpI20-FnY_2v0OoiUIpixCFA',
 
   // Ваш Chat ID (получите у @userinfobot)
-  chatId: process.env.TELEGRAM_CHAT_ID || '8647597487',
+  chatId: process.env.TELEGRAM_CHAT_ID || '8872130765',
 
   // URL API Telegram
   apiUrl: 'https://api.telegram.org',
