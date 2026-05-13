@@ -2,8 +2,8 @@ import { getAllCars } from '@/lib/db';
 import { Button } from '@/components/ui/button';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Plus, Edit, Trash2 } from 'lucide-react';
-import { deleteCar } from './actions';
+import { Plus, Edit } from 'lucide-react';
+import { DeleteCarButton } from './DeleteCarButton';
 
 export const revalidate = 0; // Don't cache admin pages
 
@@ -89,20 +89,7 @@ export default async function AdminCarsPage() {
                                                     <Edit className="w-4 h-4" />
                                                 </Link>
                                             </Button>
-                                            <form action={async () => {
-                                                'use server';
-                                                await deleteCar(car.id);
-                                            }}>
-                                                <Button
-                                                    type="submit"
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="text-destructive hover:bg-destructive/10 hover:text-destructive"
-                                                    title="Удалить"
-                                                >
-                                                    <Trash2 className="w-4 h-4" />
-                                                </Button>
-                                            </form>
+                                            <DeleteCarButton carId={car.id} carName={`${car.make} ${car.model}`} />
                                         </div>
                                     </td>
                                 </tr>

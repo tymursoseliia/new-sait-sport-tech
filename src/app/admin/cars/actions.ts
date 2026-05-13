@@ -1,14 +1,15 @@
 'use server';
 
-import { createClient } from '@/utils/supabase/server';
+import { createAdminClient } from '@/utils/supabase/admin';
 import { revalidatePath } from 'next/cache';
 
 export async function deleteCar(id: number | string) {
-    const supabase = await createClient();
+    const supabase = createAdminClient();
 
     const { error } = await supabase.from('cars').delete().eq('id', id);
 
     if (error) {
+        console.error('Delete error:', error);
         throw new Error('Не удалось удалить автомобиль: ' + error.message);
     }
 
