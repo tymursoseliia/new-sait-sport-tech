@@ -88,7 +88,7 @@ export default function HomeClient({ cars, reviews, photoReviews }: HomeClientPr
         {/* ПЕРЕКЛЮЧАТЕЛЬ: Измените USE_VIDEO на true когда загрузите видео */}
         {(() => {
           const USE_VIDEO = false; // ← Измените на true когда загрузите hero-video.mp4
-          const heroImage = '/2.jpg'; // Используем единый фон
+          const heroImage = '/image_2026-05-12_17-23-31.png'; // Используем новый фон от пользователя
 
           return (
             <div className="absolute inset-0 z-0">

@@ -115,6 +115,7 @@ export default function Header() {
             <div className="flex justify-center pb-2">
               <LanguageSwitcher />
             </div>
+            {/* Кнопка заявки для мобильных */}
             <Button asChild className="w-full" size="lg">
               <Link href="/contacts#form" onClick={() => setMobileMenuOpen(false)}>
                 {t('nav.request')}
