@@ -23,7 +23,7 @@ const nextConfig = {
       "ext.same-assets.com",
       "ugc.same-assets.com",
       "cdn.sanity.io",
-      "ominpizuexndqtbuhdos.supabase.co",
+      "veesxovaffippwmnfpxb.supabase.co",
     ],
     remotePatterns: [
       {
@@ -53,7 +53,7 @@ const nextConfig = {
       },
       {
         protocol: "https",
-        hostname: "ominpizuexndqtbuhdos.supabase.co",
+        hostname: "veesxovaffippwmnfpxb.supabase.co",
         pathname: "/**",
       },
     ],
