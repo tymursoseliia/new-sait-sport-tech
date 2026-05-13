@@ -84,7 +84,7 @@ export default function HomeClient({ cars, reviews, photoReviews }: HomeClientPr
   return (
     <div className="flex flex-col">
       {/* HERO БЛОК */}
-      <section className="relative min-h-[100svh] flex flex-col justify-center pb-6 md:pb-12 text-white overflow-hidden">
+      <section className="relative min-h-[100svh] flex flex-col justify-start pt-24 sm:pt-28 md:pt-32 lg:pt-40 pb-6 md:pb-12 text-white overflow-hidden">
         {/* ПЕРЕКЛЮЧАТЕЛЬ: Измените USE_VIDEO на true когда загрузите видео */}
         {(() => {
           const USE_VIDEO = false; // ← Измените на true когда загрузите hero-video.mp4
@@ -104,7 +104,7 @@ export default function HomeClient({ cars, reviews, photoReviews }: HomeClientPr
           );
         })()}
 
-        <div className="container-custom relative z-10 w-full mt-12 sm:mt-16 lg:mt-20">
+        <div className="container-custom relative z-10 w-full">
           <div className="flex flex-col lg:flex-row items-start justify-between gap-10 lg:gap-14 w-full">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
@@ -160,7 +160,7 @@ export default function HomeClient({ cars, reviews, photoReviews }: HomeClientPr
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 mt-12 md:mt-16 lg:mt-20 w-full mx-auto md:mx-0">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4 mt-10 md:mt-12 lg:mt-14 w-full mx-auto md:mx-0">
             {[
               { num: 6, suffix: '+', text: t('hero.years'), icon: Calendar },
               { num: 500, suffix: '+', text: t('hero.cars'), icon: Car },
