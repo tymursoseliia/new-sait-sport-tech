@@ -23,10 +23,10 @@ export const CONTACTS = {
   phoneSecondaryHref: 'tel:+79340051127',
 
   // Email
-  email: 'volga.avtogroups@mail.ru',
-  emailHref: 'mailto:volga.avtogroups@mail.ru',
-  emailSupport: 'volga.avtogroups@mail.ru',
-  emailSupportHref: 'mailto:volga.avtogroups@mail.ru',
+  email: 'sportstech@autorambler.ru',
+  emailHref: 'mailto:sportstech@autorambler.ru',
+  emailSupport: 'sportstech@autorambler.ru',
+  emailSupportHref: 'mailto:sportstech@autorambler.ru',
 
   // Адрес юридический
   city: 'Екатеринбург',
