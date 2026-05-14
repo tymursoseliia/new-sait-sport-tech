@@ -8,7 +8,7 @@ import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { createClient } from '@/utils/supabase/client';
-import { revalidateAll } from '../../actions';
+import { revalidateAll, updateCar } from '../../actions';
 import Image from 'next/image';
 
 interface EditCarFormProps {
@@ -21,6 +21,12 @@ export default function EditCarForm({ car, brands }: EditCarFormProps) {
     const supabase = createClient();
     const [loading, setLoading] = useState(false);
     const [file, setFile] = useState<File | null>(null);
+    
+    // Form states for Select components
+    const [status, setStatus] = useState(car.status || 'available');
+    const [fuelType, setFuelType] = useState(car.fuel_type || 'бензин');
+    const [transmission, setTransmission] = useState(car.transmission || 'автомат');
+    const [bodyType, setBodyType] = useState(car.body_type || 'fwd');
 
     async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
@@ -28,7 +34,7 @@ export default function EditCarForm({ car, brands }: EditCarFormProps) {
 
         try {
             const formData = new FormData(e.currentTarget);
-            let imageUrl = car.main_image; // Keep existing image by default
+            let imageUrl = car.main_image; 
 
             if (file) {
                 const fileExt = file.name.split('.').pop();
@@ -36,7 +42,7 @@ export default function EditCarForm({ car, brands }: EditCarFormProps) {
                 const filePath = `cars/${fileName}`;
 
                 const { error: uploadError } = await supabase.storage
-                    .from('zvuk-cars')
+                    .from('ZVUK-CARS')
                     .upload(filePath, file);
 
                 if (uploadError) {
@@ -44,7 +50,7 @@ export default function EditCarForm({ car, brands }: EditCarFormProps) {
                     throw new Error('Ошибка при загрузке фото: ' + uploadError.message);
                 }
 
-                const { data: { publicUrl } } = supabase.storage.from('zvuk-cars').getPublicUrl(filePath);
+                const { data: { publicUrl } } = supabase.storage.from('ZVUK-CARS').getPublicUrl(filePath);
                 imageUrl = publicUrl;
             }
 
@@ -54,30 +60,20 @@ export default function EditCarForm({ car, brands }: EditCarFormProps) {
                 year: Number(formData.get('year')),
                 price: Number(formData.get('price')),
                 mileage: Number(formData.get('mileage')),
-                status: formData.get('status'),
-                fuel_type: formData.get('fuel_type'),
-                transmission: formData.get('transmission'),
-                body_type: formData.get('body_type'),
+                status: status,
+                fuel_type: fuelType,
+                transmission: transmission,
+                body_type: bodyType,
                 location_country: formData.get('location_country'),
                 location_city: formData.get('location_city'),
                 short_description: formData.get('short_description'),
                 full_description: formData.get('full_description'),
                 main_image: imageUrl || null,
                 title: `${formData.get('brand')} ${formData.get('model')}`,
-                // Keep the original slug to avoid breaking existing links
             };
 
-            const { error: updateError } = await supabase
-                .from('cars')
-                .update(carData)
-                .eq('id', car.id);
+            await updateCar(car.id, carData);
 
-            if (updateError) {
-                console.error("Update error:", updateError);
-                throw new Error('Ошибка при обновлении авто в БД: ' + updateError.message);
-            }
-
-            await revalidateAll();
             router.push('/admin/cars');
             router.refresh();
 
@@ -123,7 +119,7 @@ export default function EditCarForm({ car, brands }: EditCarFormProps) {
 
                 <div className="space-y-2">
                     <Label htmlFor="status">Статус наличия</Label>
-                    <Select name="status" defaultValue={car.status || 'available'}>
+                    <Select value={status} onValueChange={setStatus}>
                         <SelectTrigger>
                             <SelectValue placeholder="Выберите статус" />
                         </SelectTrigger>
@@ -138,7 +134,7 @@ export default function EditCarForm({ car, brands }: EditCarFormProps) {
 
                 <div className="space-y-2">
                     <Label htmlFor="fuel_type">Тип двигателя</Label>
-                    <Select name="fuel_type" defaultValue={car.fuel_type || 'Бензин'}>
+                    <Select value={fuelType} onValueChange={setFuelType}>
                         <SelectTrigger>
                             <SelectValue placeholder="Двигатель" />
                         </SelectTrigger>
@@ -153,7 +149,7 @@ export default function EditCarForm({ car, brands }: EditCarFormProps) {
 
                 <div className="space-y-2">
                     <Label htmlFor="transmission">Коробка передач</Label>
-                    <Select name="transmission" defaultValue={car.transmission || 'Автомат'}>
+                    <Select value={transmission} onValueChange={setTransmission}>
                         <SelectTrigger>
                             <SelectValue placeholder="КПП" />
                         </SelectTrigger>
@@ -168,7 +164,7 @@ export default function EditCarForm({ car, brands }: EditCarFormProps) {
 
                 <div className="space-y-2">
                     <Label htmlFor="body_type">Тип привода</Label>
-                    <Select name="body_type" defaultValue={car.body_type || 'fwd'}>
+                    <Select value={bodyType} onValueChange={setBodyType}>
                         <SelectTrigger>
                             <SelectValue placeholder="Привод" />
                         </SelectTrigger>
