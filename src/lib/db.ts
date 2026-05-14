@@ -56,7 +56,7 @@ export async function getAllCars() {
 
         return {
           id: car.id,
-          status: (car.status === 'под заказ' ? 'order' : 'available') as 'available' | 'order',
+          status: car.status || 'available',
           make: car.brand || 'Неизвестно',
           model: car.model || '',
           year: Number(car.year) || 2020,

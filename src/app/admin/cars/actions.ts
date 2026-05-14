@@ -31,13 +31,13 @@ export async function updateCar(id: number | string, carData: any) {
         throw new Error('Не удалось обновить автомобиль: ' + error.message);
     }
 
-    revalidatePath('/catalog');
-    revalidatePath('/admin/cars');
-    revalidatePath('/');
+    revalidatePath('/', 'layout');
+    revalidatePath('/catalog', 'layout');
+    revalidatePath('/admin/cars', 'layout');
 }
 
 export async function revalidateAll() {
-    revalidatePath('/catalog');
-    revalidatePath('/admin/cars');
-    revalidatePath('/');
+    revalidatePath('/', 'layout');
+    revalidatePath('/catalog', 'layout');
+    revalidatePath('/admin/cars', 'layout');
 }
