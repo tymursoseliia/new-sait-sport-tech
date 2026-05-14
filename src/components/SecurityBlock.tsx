@@ -3,6 +3,7 @@
 import FadeInSection from '@/components/FadeInSection';
 import { Shield, AlertTriangle, TrendingUp, Truck } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 export function SecurityBlock() {
   return (
@@ -80,9 +81,16 @@ export function SecurityBlock() {
               </div>
             </div>
 
-            <Button size="lg" className="bg-white text-emerald-800 hover:bg-emerald-50 hover:text-emerald-900 border-none px-8 py-6 text-base font-bold rounded-xl shadow-lg hover:shadow-xl transition-all w-full sm:w-auto z-10">
-              Ознакомиться с договором
-            </Button>
+            <Link 
+              href="https://t.me/Sporttehauto" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="w-full sm:w-auto"
+            >
+              <Button size="lg" className="bg-white text-emerald-800 hover:bg-emerald-50 hover:text-emerald-900 border-none px-8 py-6 text-base font-bold rounded-xl shadow-lg hover:shadow-xl transition-all w-full z-10">
+                Ознакомиться с договором
+              </Button>
+            </Link>
           </div>
         </FadeInSection>
 
