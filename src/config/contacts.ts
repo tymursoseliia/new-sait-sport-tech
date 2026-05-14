@@ -17,10 +17,10 @@ export const CONTACTS = {
   legalName: 'ООО "СПОРТ ТЕХ"',
 
   // Телефоны
-  phone: '+7 (934) 005-11-27',
-  phoneHref: 'tel:+79340051127',
-  phoneSecondary: '+7 (934) 005-11-27',
-  phoneSecondaryHref: 'tel:+79340051127',
+  phone: '+7 (499) 711-86-91',
+  phoneHref: 'tel:+74997118691',
+  phoneSecondary: '+7 (499) 711-86-91',
+  phoneSecondaryHref: 'tel:+74997118691',
 
   // Email
   email: 'sportstech@autorambler.ru',
