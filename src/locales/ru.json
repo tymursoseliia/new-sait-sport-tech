@@ -50,6 +50,8 @@
   "catalog.subtitle": "Актуальные автомобили в наличии и под заказ",
   "catalog.available": "В наличии",
   "catalog.order": "Под заказ",
+  "catalog.reserved": "Бронь",
+  "catalog.sold": "Продана",
   "catalog.from": "от",
   "catalog.requestButton": "Оставить заявку",
   "catalog.viewAll": "Смотреть весь каталог",

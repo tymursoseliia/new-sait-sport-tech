@@ -223,8 +223,19 @@ export default function HomeClient({ cars, reviews, photoReviews }: HomeClientPr
                         className="object-cover"
                         containerClassName="aspect-video"
                       />
-                      <Badge className="absolute top-3 right-3 shadow-sm z-10">
-                        {car.status === 'available' ? t('catalog.available') : t('catalog.order')}
+                      <Badge
+                        className={`absolute top-3 right-3 shadow-sm z-10 ${
+                          car.status === 'available' ? 'bg-green-500/90 hover:bg-green-500' :
+                          car.status === 'on_order' ? 'bg-blue-500/90 hover:bg-blue-500' :
+                          car.status === 'reserved' ? 'bg-orange-500/90 hover:bg-orange-500' :
+                          car.status === 'sold' ? 'bg-zinc-500/90 hover:bg-zinc-500' :
+                          'bg-zinc-500/90 hover:bg-zinc-500'
+                        } text-white border-0`}
+                      >
+                        {car.status === 'available' ? t('catalog.available') :
+                         car.status === 'on_order' ? t('catalog.order') :
+                         car.status === 'reserved' ? t('catalog.reserved') :
+                         car.status === 'sold' ? t('catalog.sold') : t('catalog.available')}
                       </Badge>
                     </div>
                     <div className="p-5">
@@ -272,8 +283,19 @@ export default function HomeClient({ cars, reviews, photoReviews }: HomeClientPr
                     className="object-cover"
                     containerClassName="aspect-video"
                   />
-                  <Badge className="absolute top-4 right-4 z-10">
-                    {car.status === 'available' ? t('catalog.available') : t('catalog.order')}
+                  <Badge
+                    className={`absolute top-4 right-4 z-10 ${
+                      car.status === 'available' ? 'bg-green-500/90 hover:bg-green-500' :
+                      car.status === 'on_order' ? 'bg-blue-500/90 hover:bg-blue-500' :
+                      car.status === 'reserved' ? 'bg-orange-500/90 hover:bg-orange-500' :
+                      car.status === 'sold' ? 'bg-zinc-500/90 hover:bg-zinc-500' :
+                      'bg-zinc-500/90 hover:bg-zinc-500'
+                    } text-white border-0`}
+                  >
+                    {car.status === 'available' ? t('catalog.available') :
+                     car.status === 'on_order' ? t('catalog.order') :
+                     car.status === 'reserved' ? t('catalog.reserved') :
+                     car.status === 'sold' ? t('catalog.sold') : t('catalog.available')}
                   </Badge>
                 </div>
                 <div className="p-6">
